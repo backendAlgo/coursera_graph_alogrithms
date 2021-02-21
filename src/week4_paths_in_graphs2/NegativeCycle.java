@@ -1,3 +1,5 @@
+package week4_paths_in_graphs2;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

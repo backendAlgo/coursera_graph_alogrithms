@@ -1,11 +1,21 @@
+package week1_graph_decomposition1;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Reachability {
     private static int reach(ArrayList<Integer>[] adj, int x, int y) {
         int[] visited = new int[adj.length];
+        return dfs(adj, x, y, visited);
+    }
 
-
+    private static int dfs(ArrayList<Integer>[] adj, int x, int y, int[] visited) {
+        if (x == y) return 1;
+        visited[x] = 1;
+        for (int i = 0; i < adj[x].size(); i++)
+            if (visited[adj[x].get(i)] == 0)
+                if (dfs(adj, adj[x].get(i), y, visited) == 1)
+                    return 1;
         return 0;
     }
 

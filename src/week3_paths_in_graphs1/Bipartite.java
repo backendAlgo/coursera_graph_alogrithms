@@ -1,12 +1,31 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Scanner;
+package week3_paths_in_graphs1;
+
+import java.util.*;
 
 public class Bipartite {
     private static int bipartite(ArrayList<Integer>[] adj) {
-        //write your code here
-        return -1;
+        var V = adj.length;
+        var flag = new int[V];
+        //0 for not visited
+        //1 for black color
+        //2 for red color
+        var q = new ArrayDeque<Integer>();
+        //0 node is chose as a beginning of bfs
+        q.offer(0);
+        flag[0] = 1;
+        int curr;
+        while (!q.isEmpty()) {
+            curr = q.poll();
+            for (int adjacent : adj[curr]) {
+                if (flag[adjacent] == flag[curr])
+                    return 0;
+                if (flag[adjacent] == 0) {
+                    flag[adjacent] = flag[curr] == 1 ? 2 : 1;
+                    q.offer(adjacent);
+                }
+            }
+        }
+        return 1;
     }
 
     public static void main(String[] args) {

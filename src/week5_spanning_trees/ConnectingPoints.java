@@ -1,3 +1,5 @@
+package week5_spanning_trees;
+
 import java.util.Scanner;
 
 public class ConnectingPoints {
