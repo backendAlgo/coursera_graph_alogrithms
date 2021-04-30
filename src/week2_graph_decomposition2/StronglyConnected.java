@@ -1,4 +1,4 @@
-package week2_graph_decomposition2;
+//package week2_graph_decomposition2;
 
 import java.util.*;
 
@@ -34,7 +34,6 @@ public class StronglyConnected {
                              int i,
                              boolean[] visited) {
         visited[i] = true;
-        System.out.print(i + " ");
         for (int adjacents : adj[i]) {
             if (!visited[adjacents]) {
                 dfs2(adj, adjacents, visited);
@@ -50,7 +49,6 @@ public class StronglyConnected {
                 dfs1(adj, i, visited, st);
             }
         }
-        System.out.println("Stack: " + st);
         Arrays.fill(visited, false);
         adj = reverseGraph(adj);
         int curr;
@@ -60,7 +58,6 @@ public class StronglyConnected {
             if (!visited[curr]) {
                 dfs2(adj, curr, visited);
                 ans++;
-                System.out.println();
             }
         }
         return ans;

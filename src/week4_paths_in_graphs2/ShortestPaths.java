@@ -4,16 +4,45 @@ import java.util.*;
 
 public class ShortestPaths {
 
-    private static void shortestPaths(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost, int s, long[] distance, int[] reachable, int[] shortest) {
-      //write your code here
+    private static void shortestPaths(ArrayList<Integer>[] adj,
+                                      ArrayList<Integer>[] cost,
+                                      int s,
+                                      long[] distance,
+                                      int[] reachable,
+                                      int[] shortest) {
+        int V = adj.length;
+        distance[s] = 0;
+        for (int i = 0; i < V - 1; i++) {
+            for (int u = 0; u < V; u++) {
+                for (int vi = 0; vi < adj[u].size(); vi++) {
+                    relaxation(u, adj[u].get(vi), cost[u].get(vi), distance);
+                }
+            }
+        }
+
+        for (int u = 0; u < V; u++) {
+            for (int vi = 0; vi < adj[u].size(); vi++) {
+                if (relaxation(u, adj[u].get(vi), cost[u].get(vi), distance)) {
+
+                }
+            }
+        }
+    }
+    // relaxation method
+    private static boolean relaxation(int u, int v, int cost, long[] dist) {
+        if (dist[u] != Integer.MAX_VALUE && dist[v] > dist[u] + cost) {
+            dist[v] = dist[u] + cost;
+                return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
         int m = scanner.nextInt();
-        ArrayList<Integer>[] adj = (ArrayList<Integer>[])new ArrayList[n];
-        ArrayList<Integer>[] cost = (ArrayList<Integer>[])new ArrayList[n];
+        ArrayList<Integer>[] adj = (ArrayList<Integer>[]) new ArrayList[n];
+        ArrayList<Integer>[] cost = (ArrayList<Integer>[]) new ArrayList[n];
         for (int i = 0; i < n; i++) {
             adj[i] = new ArrayList<Integer>();
             cost[i] = new ArrayList<Integer>();

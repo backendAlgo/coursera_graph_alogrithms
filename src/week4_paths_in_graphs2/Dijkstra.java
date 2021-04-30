@@ -8,6 +8,7 @@ public class Dijkstra {
         private int id;
         //  value from source node to given node
         private int val;
+
         public DijkstraNode(int id, int val) {
             this.id = id;
             this.val = val;
@@ -21,18 +22,19 @@ public class Dijkstra {
             dist[i] = Integer.MAX_VALUE;
         }
         dist[s] = 0;
-        PriorityQueue<DijkstraNode> pq = new PriorityQueue<>(V, (a, b) -> b.id - a.id);
-       pq.offer(new DijkstraNode(s, 0));
+        TreeSet<DijkstraNode> pq = new TreeSet<>((a, b) -> b.val - a.val);
+        pq.add(new DijkstraNode(s, 0));
         DijkstraNode curr;
         int currId;
         while (!pq.isEmpty()) {
-            curr = pq.poll();
+            curr = pq.pollFirst();
+            assert curr != null;
             currId = curr.id;
             for (int i = 0; i < adj[currId].size(); i++) {
                 int adjacent = adj[currId].get(i);
                 int val = cost[currId].get(i);
                 if (dist[adjacent] > dist[currId] + val) {
-                    pq.offer(new DijkstraNode(adjacent, dist[currId] + val));
+                    pq.add(new DijkstraNode(adjacent, dist[currId] + val));
                     dist[adjacent] = dist[currId] + val;
                 }
             }
@@ -63,4 +65,3 @@ public class Dijkstra {
         System.out.println(distance(adj, cost, x, y));
     }
 }
-

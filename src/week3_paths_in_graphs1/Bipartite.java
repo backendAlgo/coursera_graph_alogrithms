@@ -1,18 +1,17 @@
-package week3_paths_in_graphs1;
+//package week3_paths_in_graphs1;
 
 import java.util.*;
 
 public class Bipartite {
-    private static int bipartite(ArrayList<Integer>[] adj) {
-        var V = adj.length;
-        var flag = new int[V];
+    private static int bipartite(int toBegin, ArrayList<Integer>[] adj, int[] flag) {
+        int V = adj.length;
         //0 for not visited
         //1 for black color
         //2 for red color
-        var q = new ArrayDeque<Integer>();
-        //0 node is chose as a beginning of bfs
-        q.offer(0);
-        flag[0] = 1;
+        Queue<Integer> q = new ArrayDeque<>();
+        //0 node is chosen as a beginning of bfs
+        q.offer(toBegin);
+        flag[toBegin] = 1;
         int curr;
         while (!q.isEmpty()) {
             curr = q.poll();
@@ -43,7 +42,17 @@ public class Bipartite {
             adj[x - 1].add(y - 1);
             adj[y - 1].add(x - 1);
         }
-        System.out.println(bipartite(adj));
+        int V = adj.length;
+        int[] flag = new int[adj.length];
+        for (int i = 0; i < V; i++) {
+            if (flag[i] == 0) {
+                if (bipartite(i, adj, flag) == 0) {
+                    System.out.println(0);
+                    return;
+                }
+            }
+        }
+        System.out.println(1);
     }
 }
 

@@ -1,12 +1,36 @@
-package week4_paths_in_graphs2;
+//package week4_paths_in_graphs2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class NegativeCycle {
     private static int negativeCycle(ArrayList<Integer>[] adj, ArrayList<Integer>[] cost) {
-        // write your code here
+        int V = adj.length;
+        int[] dist = new int[V];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[0] = 0;
+        for (int i = 0; i < V - 1; i++) {
+            for (int u = 0; u < V; u++) {
+                for (int j = 0; j < adj[u].size(); j++) {
+                    relaxation(u,adj[u].get(j),cost[u].get(j), dist);
+                }
+            }
+        }
+        for (int u = 0; u < V; u++) {
+            for (int j = 0; j < adj[u].size(); j++) {
+                if(relaxation(u,adj[u].get(j),cost[u].get(j), dist))
+                    return 1;
+            }
+        }
         return 0;
+    }
+    private static boolean relaxation(int u, int v, int cost, int[] dist) {
+        if (dist[u] != Integer.MAX_VALUE && dist[v] > dist[u] + cost) {
+            dist[v] = dist[u] + cost;
+            return true;
+        }
+        return false;
     }
 
     public static void main(String[] args) {

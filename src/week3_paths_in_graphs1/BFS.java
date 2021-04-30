@@ -1,11 +1,11 @@
-package week3_paths_in_graphs1;
+//package week3_paths_in_graphs1;
 
 import java.util.*;
 
 public class BFS {
     private static int distance(ArrayList<Integer>[] adj, int s, int t) {
         int V = adj.length;
-        var q = new ArrayDeque<Integer>();
+        Queue<Integer> q = new ArrayDeque<>();
         q.offer(s);
         int ans = -1;
         int size = 1;
@@ -14,7 +14,7 @@ public class BFS {
         boolean done = false;
         OUTER: while (!q.isEmpty()) {
             for (int i = 0; i < size; i++) {
-                curr = q.pop();
+                curr = q.poll();
                 visited[curr] = true;
                 if (curr == t){
                     done = true;
